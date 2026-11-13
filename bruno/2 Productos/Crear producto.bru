@@ -1,0 +1,40 @@
+meta {
+  name: Crear producto
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/productos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "codigo": "PAP-{{codigoAleatorio}}",
+    "nombre": "Carpeta tamaño carta",
+    "descripcion": "Carpeta de plástico con broche",
+    "precio": 24.90,
+    "existencias": 70,
+    "categoriaId": 1
+  }
+}
+
+script:pre-request {
+  bru.setVar("codigoAleatorio", String(Math.floor(1000 + Math.random() * 9000)));
+}
+
+script:post-response {
+  if (res.getStatus() === 201) {
+    bru.setVar("productoId", res.getBody().id);
+    bru.setVar("productoCodigo", res.getBody().codigo);
+  }
+}
+
+tests {
+  test("201 Created con header Location", function () {
+    expect(res.getStatus()).to.equal(201);
+    expect(res.getHeader("location")).to.contain("/api/productos/");
+  });
+}

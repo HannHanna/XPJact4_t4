@@ -1,0 +1,36 @@
+meta {
+  name: Iniciar sesion
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "correo": "{{correo}}",
+    "contrasena": "{{contrasena}}"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() === 200) {
+    bru.setVar("accessToken", res.getBody().accessToken);
+  }
+}
+
+tests {
+  test("Responde 200 con un JWT", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().accessToken.split(".")).to.have.lengthOf(3);
+    expect(res.getBody().tokenType).to.equal("Bearer");
+  });
+}
+
+docs {
+  Ruta pública. Si el correo y la contraseña son correctos regresa el token y lo guarda en la variable accessToken.
+}

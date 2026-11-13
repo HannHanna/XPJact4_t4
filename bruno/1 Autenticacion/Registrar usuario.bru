@@ -1,0 +1,34 @@
+meta {
+  name: Registrar usuario
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombreCompleto": "Xana Amalinalli Pérez Jiménez",
+    "correo": "{{correo}}",
+    "contrasena": "{{contrasena}}"
+  }
+}
+
+tests {
+  test("Responde 201 (o 409 si el correo ya estaba registrado)", function () {
+    expect(res.getStatus()).to.be.oneOf([201, 409]);
+  });
+  test("La respuesta NO trae la contraseña", function () {
+    const body = res.getBody();
+    expect(body).to.not.have.property("contrasena");
+    expect(body).to.not.have.property("contrasenaHash");
+  });
+}
+
+docs {
+  Ruta pública. Crea la cuenta; la contraseña se guarda con hash BCrypt.
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Datos invalidos (422)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/productos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "codigo": "abc",
+    "nombre": "",
+    "precio": -10,
+    "existencias": -3,
+    "categoriaId": 1
+  }
+}
+
+tests {
+  test("422 con la lista de campos inválidos", function () {
+    expect(res.getStatus()).to.equal(422);
+    expect(res.getBody().campos.length).to.be.greaterThan(0);
+  });
+}

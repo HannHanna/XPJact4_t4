@@ -1,0 +1,33 @@
+meta {
+  name: Listar productos
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/productos?pagina=0&tamano=5&orden=precio&dir=desc
+  body: none
+  auth: inherit
+}
+
+params:query {
+  pagina: 0
+  tamano: 5
+  orden: precio
+  dir: desc
+  ~categoriaId: 2
+  ~buscar: usb
+}
+
+tests {
+  test("200 con una página de productos", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().datos).to.be.an("array");
+    expect(res.getBody()).to.have.property("totalPaginas");
+  });
+}
+
+docs {
+  GET paginado. Parámetros: pagina, tamano (1-100), orden (id, codigo, nombre, precio, existencias), dir (asc/desc).
+  Filtros opcionales: categoriaId y buscar (texto en el nombre).
+}

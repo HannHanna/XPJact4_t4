@@ -1,0 +1,21 @@
+meta {
+  name: Token falso (401)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/productos
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWNrZXJAZWplbXBsby5jb20ifQ.firmaFalsa
+}
+
+tests {
+  test("Un token con firma inválida responde 401", function () {
+    expect(res.getStatus()).to.equal(401);
+  });
+}

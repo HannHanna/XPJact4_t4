@@ -1,0 +1,17 @@
+meta {
+  name: Producto inexistente (404)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/productos/999999
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("404 si el producto no existe", function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+}

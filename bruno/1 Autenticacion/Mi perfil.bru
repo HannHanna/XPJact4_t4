@@ -1,0 +1,18 @@
+meta {
+  name: Mi perfil
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/auth/perfil
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("200 con los datos del dueño del token", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().correo).to.equal(bru.getEnvVar("correo"));
+  });
+}

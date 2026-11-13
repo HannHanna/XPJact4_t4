@@ -1,0 +1,22 @@
+meta {
+  name: Sin token (401)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/productos
+  body: none
+  auth: none
+}
+
+tests {
+  test("Una ruta protegida sin token responde 401", function () {
+    expect(res.getStatus()).to.equal(401);
+    expect(res.getBody().codigo).to.equal(401);
+  });
+}
+
+docs {
+  Misma ruta que "Listar productos" pero con auth: none (no se manda el header Authorization).
+}

@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "XPJact4_t4 - Inventario JWT",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"]
+}

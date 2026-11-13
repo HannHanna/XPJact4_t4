@@ -1,0 +1,17 @@
+meta {
+  name: Eliminar producto
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/api/productos/{{productoId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("204 No Content", function () {
+    expect(res.getStatus()).to.equal(204);
+  });
+}
