@@ -182,4 +182,4 @@ La colección hereda el token desde `collection.bru` (`auth: bearer` con `{{acce
 En el VPS las credenciales están en un archivo `.env` que solo existe en el servidor (los `*.env` están en `.gitignore`).
 
 ## API en el VPS
-URL base: **http://IP_DEL_VPS:8084/api**
+URL base: **http://167.71.180.74:8085/api** (DigitalOcean, puerto 8085; la Actividad 4 corre en su propia carpeta `/root/act4` y su propia base `xpjact4_t4`)
